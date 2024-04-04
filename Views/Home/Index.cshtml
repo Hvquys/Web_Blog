@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <div class="container mt-5">
+        <h1 class="mb-4">Web Blog</h1>
+
+        <!-- Search Bar -->
+        <form class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" id="txtKey" placeholder="Tìm kiếm bài viết...">
+                <button type="submit" class="btn btn-primary" id="btnSearch">Tìm</button>
+            </div>
+        </form>
+
+        <!-- Blog Posts -->
+
+        <div class="row">
+
+            <div class="col-md-8" id="listPost">
+                <script>
+                    $(document).ready(function () {
+                        LoadListPostsPartialView();
+
+                        $("#btnSearch").click(function () {
+                            debugger;
+
+                            var key = $("#txtKey").val();
+                            var data = {
+                                key: key
+                            };
+
+                            $.ajax({
+                                url: '/Home/PostInsert',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: data
+                            }).done(function (ketqua) {
+                                alert(ketqua.Description);
+                                LoadListPostsPartialView();
+                            });
+                        });
+
+                    });
+
+                    function LoadListPostsPartialView() {
+
+                        $.ajax({
+                            url: '/Home/ListPostsPartialView',
+                            type: 'POST',
+                            dataType: 'html',
+                            data: {}
+                        }).done(function (result) {
+                            $("#listPost").html("");
+                            $("#listPost").html(result);
+                        });
+                    }
+
+                </script>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">Post Title 1</h2>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">Post Title 2</h2>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+
+                <!-- More posts can be added here -->
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">Tạo Bài Viết</h3>
+                        <form class="mb-4">
+                            <div class="mb-3">
+                                <label for="postTitle" class="form-label">Tiêu Đề: </label>
+                                <input type="text" class="form-control" id="postTitle" placeholder="Tiêu đề bài viết">
+                            </div>
+                            <div class="mb-3">
+                                <label for="PostContent" class="form-label">Nội dung: </label>
+                                <textarea class="form-control" id="PostContent" rows="3" placeholder="Nhập vào nội dung bài viết"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Additional sidebar content can be added here -->
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            debugger;
+
+            var email = $("#txtEmail").val();
+            var password = $("#txtPassWord").val();
+            var data = {
+                email: email,
+                password: password
+            };
+
+            $.ajax({
+                url: '/Home/AccountInsert',
+                type: 'POST',
+                dataType: 'json',
+                data: data
+            }).done(function (ketqua) {
+                alert(ketqua.Description);
+            });
+        });
+
+    });
+
+
+
+</script>
