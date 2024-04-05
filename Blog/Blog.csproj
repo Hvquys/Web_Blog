@@ -44,18 +44,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="blog.cs" />
-    <Compile Include="Comment\Comment.cs" />
-    <Compile Include="Post\Post.cs" />
-    <Compile Include="Post\PostInterface.cs" />
-    <Compile Include="Post\PostManagerment.cs" />
+    <Compile Include="Interface\BlogInterface.cs" />
+    <Compile Include="Interface\BlogManagerment.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="post.cs" />
+    <Compile Include="Interface\PostInterface.cs" />
+    <Compile Include="Interface\PostManagerment.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

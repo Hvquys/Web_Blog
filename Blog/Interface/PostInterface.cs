@@ -5,11 +5,10 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blog.Post
+namespace Blog.Interface
 {
     public interface PostInterface
     {
-        void PostInsert(Post post);
-        List<Post> GetPosts();
+        void PostInsertComment(Comment comment, List<Comment> lst);
     }
 }

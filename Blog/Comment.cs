@@ -10,14 +10,5 @@ namespace Blog
     {
         public string AuthorName { get; set; }
         public string Content { get; set; }
-        public DateTime DatePublished { get; }
-
-        // Hàm khởi tạo
-        public Comment(string authorName, string content)
-        {
-            AuthorName = authorName;
-            Content = content;
-            DatePublished = DateTime.Now;
-        }
     }
 }

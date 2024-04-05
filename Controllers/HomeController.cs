@@ -17,10 +17,10 @@ namespace Web_Blog.Controllers
 
         public ActionResult ListPostsPartialView()
         {
-            var list = new List<Post>();
+            var list = new List<post>();
             try
             {
-                list = new Blog.blog.;
+                list = new Blog.Interface.BlogManagerment().GetListPost();
             }
             catch (Exception ex)
             {
