@@ -1,4 +1,4 @@
-﻿@model List<BE_Blog.post>
+﻿@model BE_Blog.post
 @if (Model.Count > 0)
 {
     for (int i = 0; i < Model.Count; i++)
@@ -13,13 +13,3 @@
         </div>
     }
 }
-<script>
-    $(document).ready(function () {
-        function xemThem(title) {
-            // Xây dựng URL với tham số title
-            var url = "/HomeController/ListPostsPartialView/" + encodeURIComponent(title);
-            // Chuyển hướng đến URL vừa tạo
-            window.location.href = url;
-        };
-    });
-</script>

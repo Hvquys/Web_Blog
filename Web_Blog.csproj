@@ -124,6 +124,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ResponseData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,13 +176,14 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\PostDetail.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ListPostsPartialView.cshtml" />
+    <Content Include="Views\Home\ListCommentsPartialView.cshtml" />
+    <Content Include="Views\Home\PostsPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -211,9 +213,9 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Blog\Blog.csproj">
-      <Project>{e5d41331-1435-4afd-86c4-a9f9287a392c}</Project>
-      <Name>Blog</Name>
+    <ProjectReference Include="BE_Blog\BE_Blog.csproj">
+      <Project>{6c5201a7-7f68-48cd-bc92-ed5198d9517e}</Project>
+      <Name>BE_Blog</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

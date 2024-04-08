@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
 <main>
     <div class="container mt-5">
         <h1 class="mb-4">Web Blog</h1>
@@ -18,46 +17,9 @@
 
         <div class="row">
 
-            <div class="col-md-8" id="listPost">
-                <script>
-                    $(document).ready(function () {
-                        LoadListPostsPartialView();
-
-                        $("#btnSearch").click(function () {
-                            debugger;
-
-                            var key = $("#txtKey").val();
-                            var data = {
-                                key: key
-                            };
-
-                            $.ajax({
-                                url: '/Home/PostInsert',
-                                type: 'POST',
-                                dataType: 'json',
-                                data: data
-                            }).done(function (ketqua) {
-                                alert(ketqua.Description);
-                                LoadListPostsPartialView();
-                            });
-                        });
-
-                    });
-
-                    function LoadListPostsPartialView() {
-
-                        $.ajax({
-                            url: '/Home/ListPostsPartialView',
-                            type: 'POST',
-                            dataType: 'html',
-                            data: {}
-                        }).done(function (result) {
-                            $("#listPost").html("");
-                            $("#listPost").html(result);
-                        });
-                    }
-
-                </script>
+            <div class="col-md-8">
+                <div id="listPostsData"></div>
+                
                 <div class="card mb-4">
                     <div class="card-body">
                         <h2 class="card-title">Post Title 1</h2>
@@ -85,13 +47,13 @@
                         <form class="mb-4">
                             <div class="mb-3">
                                 <label for="postTitle" class="form-label">Tiêu Đề: </label>
-                                <input type="text" class="form-control" id="postTitle" placeholder="Tiêu đề bài viết">
+                                <input type="text" class="form-control" id="txtPostTitle" placeholder="Tiêu đề bài viết">
                             </div>
                             <div class="mb-3">
-                                <label for="PostContent" class="form-label">Nội dung: </label>
-                                <textarea class="form-control" id="PostContent" rows="3" placeholder="Nhập vào nội dung bài viết"></textarea>
+                                <label for="PostContent" class="form-label" id="Content">Nội dung: </label>
+                                <textarea class="form-control" id="txtPostContent" rows="3" placeholder="Nhập vào nội dung bài viết"></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="btnSubmit" onclick="InsertPostData()">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -104,29 +66,77 @@
 
 <script>
     $(document).ready(function () {
+        LoadListPostsPartialView();
 
-        $("#btnSubmit").click(function () {
+        $("#btnSearch1").click(function () {
             debugger;
 
-            var email = $("#txtEmail").val();
-            var password = $("#txtPassWord").val();
-            var data = {
-                email: email,
-                password: password
-            };
+            var key = $("#txtKey").val();
 
+            // Xây dựng URL với tham số title
+            var url = "/Home/PostsPartialView/" + encodeURIComponent(key);
+            // Chuyển hướng đến URL vừa tạo
+            window.location.href = url;
+        });
+
+        $("#btnSearch").click(function () {
+            debugger;
+            var key = $("#txtKey").val();
             $.ajax({
-                url: '/Home/AccountInsert',
+                url: '/Home/PostsPartialView',
                 type: 'POST',
-                dataType: 'json',
-                data: data
-            }).done(function (ketqua) {
-                alert(ketqua.Description);
+                dataType: 'html',
+                data: key
+            }).done(function (result) {
+                $("#listPostsData").html("");
+                $("#listPostsData").html(result);
             });
         });
 
     });
 
+    function LoadListPostsPartialView() {
 
+        $.ajax({
+            url: '/Home/ListPostsPartialView',
+            type: 'POST',
+            dataType: 'html',
+            data: {}
+        }).done(function (result) {
+            $("#listPostsData").html("");
+            $("#listPostsData").html(result);
+        });
+    }
+
+    function InsertPostData() {
+        var Title = $("#txtPostTitle").val();
+        var Content = $("#txtPostContent").val();
+        console.log("Tite = " + Title);
+        var data = {
+            Title: Title,
+            Content: Content
+        };
+
+        $.ajax({
+            url: '/Home/PostInsert',
+            type: 'POST',
+            dataType: 'json',
+            data: data
+        }).done(function (ketqua) {
+            alert(ketqua.Description);
+
+            LoadListPostsPartialView();
+            var postListStr = localStorage.getItem('PostLists');
+            console.log(postListStr);
+        });
+
+    }
+
+    function xemThem(title) {
+        // Xây dựng URL với tham số title
+        var url = "/Home/PostDetail/" + encodeURIComponent(title);
+        // Chuyển hướng đến URL vừa tạo
+        window.location.href = url;
+    };
 
 </script>

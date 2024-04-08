@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Post Detail";
+}
+@model BE_Blog.post
+<main>
+    <div class="container mt-5">
+        <!-- Post Content -->
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title" id="postTitle">@Model.Title</h2>
+                        <p class="card-text">@Model.Content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h3 class="mb-4">Bình Luận</h3>
+
+                <!-- Comment Form -->
+                <form class="mb-4">
+                    <div class="mb-3">
+                        <label for="commentName" class="form-label">Tên</label>
+                        <input type="text" class="form-control" id="txtCommentName" placeholder="Nhập tên của bạn">
+                    </div>
+                    <div class="mb-3">
+                        <label for="commentContent" class="form-label">Bình luận</label>
+                        <textarea class="form-control" id="txtCommentContent" rows="3" placeholder="Nhập vào bình luận về bài viết"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="btnSubmit">Submit</button>
+                </form>
+
+                <!-- Comments List -->
+                <div class="card mb-3">
+                    <div id="listPostsData"></div>
+                    <script>
+                        $(document).ready(function () {
+                            LoadListPostsPartialView();
+                        }
+
+                        function LoadListPostsPartialView() {
+                            var title = document.getElementById("postTitle").innerText;
+                            $.ajax({
+                                url: '/Home/ListCommentsPartialView',
+                                type: 'POST',
+                                dataType: 'html',
+                                data: title
+                            }).done(function (result) {
+                                $("#listPostsData").html("");
+                                $("#listPostsData").html(result);
+                            });
+                        }
+
+                    </script>
+                    <div class="card-body">
+                        <h5 class="card-title">John Doe</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+                <!-- More comments can be added here -->
+            </div>
+        </div>
+    </div>
+</main>
